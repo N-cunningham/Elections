@@ -73,5 +73,10 @@ public class Party {
 		seats++;
 
 	}
+	
+
+
+
+	
 
 }

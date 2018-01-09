@@ -10,7 +10,7 @@ public class Constituency {
 	private String name;
 	private String winner;
 	private int winnerIndex;
-	private double majority;
+	private double majority;	
 	ArrayList<Party> parties = new ArrayList<Party>();
 
 	public Constituency(ArrayList<Double> oldVote, ArrayList<Double> newVote, String nation, String name, String winner,
@@ -56,5 +56,11 @@ public class Constituency {
 		
 		return winner + " won " + name + " with " + winningVote + " by " + (int) majority + " votes\n" + res;
 
+	}
+	
+	public double getMajority() {
+		
+		return majority;
+		
 	}
 }

@@ -26,6 +26,7 @@ public class Nation {
 	ArrayList<Party> parties = new ArrayList<Party>();
 	ArrayList<Constituency> Constituencies = new ArrayList<Constituency>();
 	ArrayList<Double> newNationalVote;
+	
 
 	public ArrayList<Double> getNewNationalVote() {
 		return newNationalVote;
@@ -101,7 +102,19 @@ public class Nation {
 		}
 
 	}
+	
+	
+	public void setParties(ArrayList<Party> parties) {
+		this.parties = parties;
+	}
 
+	public ArrayList<Party> getParties() {
+
+			return parties;
+			
+	}
+
+	
 	void printConstituencyResults() {
 
 		System.out.println(name + " Constituency Results\n");

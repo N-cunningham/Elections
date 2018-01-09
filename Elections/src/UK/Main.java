@@ -7,6 +7,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		ArrayList<Nation> nations = new ArrayList<Nation>();
 		Scanner scan = new Scanner(System.in);
 
 		Nation scotland = new Nation("Scotland");// Make sure same spelling as in CSV file
@@ -103,25 +104,95 @@ public class Main {
 
 		scan.close();
 
-		scotland.setNewNationalVote(newScottishVote);
-		scotland.calculate();
-		scotland.printResults();
-		scotland.printConstituencyResults();
+		run(scotland, newScottishVote);
+		run(england, newEnglishVote);
+		run(wales, newWelshVote);
+		run(NorthernIreland, newNIrishVote);
 
-		england.setNewNationalVote(newEnglishVote);
-		england.calculate();
-		england.printResults();
-		england.printConstituencyResults();
+		nations.add(scotland);
+		nations.add(england);
+		nations.add(wales);
+		nations.add(NorthernIreland);
 
-		wales.setNewNationalVote(newWelshVote);
-		wales.calculate();
-		wales.printResults();
-		wales.printConstituencyResults();
+		printAll(nations);
 
-		NorthernIreland.setNewNationalVote(newNIrishVote);
-		NorthernIreland.calculate();
-		NorthernIreland.printResults();
-		NorthernIreland.printConstituencyResults();
+	}
+
+	private static void printAll(ArrayList<Nation> nation) {
+
+		ArrayList<String> PartiesNames = getAllPartiesNames(nation);
+		ArrayList<Party> parties = new ArrayList<Party>();
+
+		for (int j = 0; j < PartiesNames.size(); j++) {
+
+			Party p = new Party(PartiesNames.get(j), 0, 0, 0, 0, 0);
+			parties.add(p);
+
+		}
+
+		for (int i = 0; i < nation.size(); i++) {
+
+			for (int p = 0; p < nation.get(i).getParties().size(); p++) {
+
+				for (int x = 0; x < parties.size(); x++) {
+
+					if (nation.get(i).getParties().get(p).getName().equals(parties.get(x).getName())) {
+
+						parties.get(x).setSeats(parties.get(x).getSeats() + nation.get(i).getParties().get(p).getSeats());
+
+					}
+
+				}
+			}
+
+		}
+
+		System.out.println("\nFinal Results: \n------------------------------");
+		
+		for (int n = 0; n < parties.size(); n++) {
+
+			System.out.println(parties.get(n).getName() + ": " + parties.get(n).getSeats());
+
+		}
+		
+		System.out.println("\n\n\n\n\n");
+
+	}
+
+	public static ArrayList<String> getAllPartiesNames(ArrayList<Nation> nation) {
+
+		ArrayList<String> PartyNames = new ArrayList<String>();
+
+		for (int i = 0; i < nation.size(); i++) {
+
+			int p = 0;
+
+			while (p < nation.get(i).parties.size()) {
+
+				if (PartyNames.contains(nation.get(i).parties.get(p).getName())) {
+
+					p++;
+
+				} else {
+
+					PartyNames.add(nation.get(i).parties.get(p).getName());
+
+				}
+
+			}
+
+		}
+
+		return PartyNames;
+
+	}
+
+	public static void run(Nation n, ArrayList<Double> newVote) {
+
+		n.setNewNationalVote(newVote);
+		n.calculate();
+		n.printResults();
+		n.printConstituencyResults();
 
 	}
 
